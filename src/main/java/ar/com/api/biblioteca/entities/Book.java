@@ -14,6 +14,7 @@ public class Book {
     
     @Id
     @Column(name = "book_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookId;
 
     private String title;
@@ -24,7 +25,8 @@ public class Book {
 
     private String description;
 
-    private Genre genre;// o hacer un many to many donde un libro tiene una lista de generos y generos lista de libros
+    @ManyToMany(mappedBy = "books")
+    private List<Genre> genres = new ArrayList<>();// o hacer un many to many donde un libro tiene una lista de generos y generos lista de libros
     
     @Column(name = "publication_year")
     //temporal anotation
@@ -33,6 +35,9 @@ public class Book {
     private int ISBN13;
 
     private int ISBN10;
+
+    @ManyToMany(mappedBy = "books")
+    private List<Author> authors = new ArrayList<>();
 
     public Integer getBookId() {
         return bookId;
@@ -67,12 +72,21 @@ public class Book {
         this.description = description;
     }
 
-    public Genre getGenre() {
-        return genre;
+    
+    public List<Genre> getGenres() {
+        return genres;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public Date getPublicationYear() {
@@ -99,6 +113,13 @@ public class Book {
         ISBN10 = iSBN10;
     }
 
+    public void addAuthor(Author author){
+        this.authors.add(author);
+    }
+
+    public void addGenre(Genre genre){
+        this.genres.add(genre);
+    }
 
     
 

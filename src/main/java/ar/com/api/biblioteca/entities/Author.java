@@ -10,6 +10,7 @@ public class Author {
 
     @Id
     @Column(name = "author_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer authorId;
 
 
@@ -26,7 +27,12 @@ public class Author {
     @Column(name = "alternative_name")
     private String alternativeName;
     
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+        name = "book_author",
+        joinColumns = @JoinColumn(name = "author_id"),
+        inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
     private List<Book> books = new ArrayList<>();
 
     
@@ -82,6 +88,7 @@ public class Author {
         return books;
     }
 
+   
     public void setBooks(List<Book> books) {
         this.books = books;
     }

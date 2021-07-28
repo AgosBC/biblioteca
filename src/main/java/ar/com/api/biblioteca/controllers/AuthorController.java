@@ -14,7 +14,7 @@ import ar.com.api.biblioteca.services.AuthorService;
 public class AuthorController {
 
     @Autowired
-    AuthorService service;
+    public AuthorService service;
 
     @PostMapping("/autores")
     public ResponseEntity<GenericResponse> create(@RequestBody Author author){
