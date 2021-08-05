@@ -5,6 +5,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NaturalId;
+
 
 
 @Entity
@@ -32,8 +34,10 @@ public class Book {
     //temporal anotation
     private Date publicationYear;
 
+    @NaturalId
     private int ISBN13;
 
+    @NaturalId
     private int ISBN10;
 
     @ManyToMany(mappedBy = "books")
