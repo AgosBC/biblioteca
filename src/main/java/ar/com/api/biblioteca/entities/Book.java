@@ -21,9 +21,12 @@ public class Book {
 
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "author_id")
-    private Author author;
+    //@ManyToOne
+    //@JoinColumn(name = "author_id", referencedColumnName = "author_id")
+    //private Author author;
+
+    @ManyToMany(mappedBy = "books")
+    private List<Author> authors = new ArrayList<>();
 
     private String description;
 
@@ -39,9 +42,7 @@ public class Book {
 
     @NaturalId
     private int ISBN10;
-
-    @ManyToMany(mappedBy = "books")
-    private List<Author> authors = new ArrayList<>();
+    
 
     public Integer getBookId() {
         return bookId;
@@ -59,14 +60,14 @@ public class Book {
         this.title = title;
     }
 
-    public Author getAuthor() {
+   /* public Author getAuthor() {
         return author;
     }
 
     public void setAuthor(Author author) {
         this.author = author;
         author.addBook(this);
-    }
+    }*/
 
     public String getDescription() {
         return description;
